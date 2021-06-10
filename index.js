@@ -18,7 +18,11 @@ app.get('/', (req, res) => {
 client.connect(err => {
   const movieCollection = client.db(process.env.DB_NAME).collection("movies");
 
-  console.log('database connected')
+  app.post("/add-movie", (req, res) => {
+    const movie = req.body;
+    movieCollection.insertOne(movie).then((result) => res.send(result.insertedCount > 0));
+  });
+
 });
 
 

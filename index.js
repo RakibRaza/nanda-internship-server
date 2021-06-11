@@ -36,6 +36,17 @@ client.connect(err => {
       .then((result) => res.send(result.deletedCount > 0));
   });
 
+  app.put("/update-movie/:id", (req, res) => {
+    movieCollection
+      .updateOne(
+        { _id: ObjectId(req.params.id) },
+        {
+          $set: req.body,
+        }
+      )
+      .then((result) => res.send(result.modifiedCount > 0));
+  });
+
 });
 
 
